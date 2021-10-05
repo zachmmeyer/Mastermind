@@ -3,7 +3,8 @@
 # Board class
 class Board
   def layout_spaces(guess_spaces, feedback_spaces)
-    guess_array, feedback_array = [], []
+    guess_array = []
+    feedback_array = []
     guess_spaces.each_slice(4) do |a|
       guess_array.push(color_board(a[0], a[1], a[2], a[3]))
     end
@@ -25,12 +26,11 @@ class Board
   end
 
   def draw_board
-    <<~BOARD
-      #{layout_spaces(@guess_spaces, @feedback_spaces)}
-    BOARD
+    layout_spaces(@guess_spaces, @feedback_spaces)
   end
 end
 
 Board.new.draw_board
 
+# Saved unicode for spaces
 # ● ◯ ⊕ ⊖ ➊ ➋ ➌ ➍
