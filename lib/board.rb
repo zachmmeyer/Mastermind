@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+require_relative './colors'
+
 # Board class
 class Board
+  include Colors
   def layout_spaces(guess_spaces, feedback_spaces)
     guess_array = []
     feedback_array = []
@@ -17,7 +20,7 @@ class Board
   end
 
   def color_board(input1, input2, input3, input4)
-    "\e[30;43m #{input1} #{input2} #{input3} #{input4} \e[0m"
+    "\e[30;48;2;#{color_picker('board brown')}m #{input1} #{input2} #{input3} #{input4} \e[0m"
   end
 
   def initialize
