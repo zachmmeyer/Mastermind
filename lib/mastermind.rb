@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative './board'
+
 module Mastermind
   # Game class
   class Game
@@ -20,6 +22,8 @@ module Mastermind
       puts 'Welcome to Mastermind!'
       puts 'Press 1 to become The Codebreaker; Press 2 to become The Codemaker'
       player_choose_role
+      @board = Board.new
+      @board.draw_board
     end
   end
 end
