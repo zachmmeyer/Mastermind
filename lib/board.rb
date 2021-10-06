@@ -15,7 +15,7 @@ class Board
     output.delete_suffix('|')
   end
 
-  def update_board
+  def draw_board
     <<~BOARD
        _______   _______
       |#{print_board_line(@guess_spaces, 0, '|')}| |#{print_board_line(@feedback_spaces, 0, '|')}|
