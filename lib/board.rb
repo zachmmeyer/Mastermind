@@ -7,6 +7,10 @@ class Board
     @feedback_spaces = Array.new(12, Array.new(4, '_'))
   end
 
+  def input_guess(turn, input)
+    modify_space(@guess_spaces, turn, input)
+  end
+
   def print_board_line(space_type, first_index, spacer)
     output = ''
     space_type[first_index].each do |space|
@@ -31,5 +35,11 @@ class Board
       |#{print_board_line(@guess_spaces, 10, '|')}| |#{print_board_line(@feedback_spaces, 10, '|')}|
       |#{print_board_line(@guess_spaces, 11, '|')}| |#{print_board_line(@feedback_spaces, 11, '|')}|
     BOARD
+  end
+
+  private
+
+  def modify_space(space, turn, input)
+    space[(turn - 1)] = input
   end
 end

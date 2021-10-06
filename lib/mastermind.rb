@@ -1,8 +1,21 @@
 # frozen_string_literal: true
 
+require_relative './board'
+
 module Mastermind
   # Game class
   class Game
+    def initialize
+      @board = Board.new
+    end
+
+    def guess
+      turn = gets.chomp
+      input = gets.chomp
+      input = input.to_s.chars
+      @board.input_guess(turn.to_i, input)
+    end
+
     def player_choose_role
       player_choice = gets.chomp
       case player_choice
@@ -23,3 +36,5 @@ module Mastermind
     end
   end
 end
+
+Mastermind::Game.new.start
