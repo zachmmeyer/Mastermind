@@ -1,39 +1,35 @@
 # frozen_string_literal: true
 
-require_relative './colors'
-
 # Board class
 class Board
-  include Colors
-  def layout_spaces(guess_spaces, feedback_spaces)
-    guess_array = []
-    feedback_array = []
-    guess_spaces.each_slice(4) do |a|
-      guess_array.push(color_board(a[0], a[1], a[2], a[3]))
-    end
-    feedback_spaces.each_slice(4) do |a|
-      feedback_array.push(color_board(a[0], a[1], a[2], a[3]))
-    end
-    guess_array.zip(feedback_array).each_slice(1) do |a|
-      puts "#{a[0][0]}#{a[0][1]}"
-    end
-  end
-
-  def color_board(input1, input2, input3, input4)
-    "\e[30;48;2;#{color_picker('board brown')}m #{input1} #{input2} #{input3} #{input4} \e[0m"
-  end
-
   def initialize
-    @guess_spaces = Array.new(48, '●')
-    @feedback_spaces = Array.new(48, '◯')
+    @guess_spaces = Array.new(12, Array.new(4, '_'))
+    @feedback_spaces = Array.new(12, Array.new(4, '_'))
   end
 
-  def draw_board
-    layout_spaces(@guess_spaces, @feedback_spaces)
+  def print_board_line(space_type, first_index, spacer)
+    output = ''
+    space_type[first_index].each do |space|
+      output += "#{space}#{spacer}"
+    end
+    output.delete_suffix('|')
+  end
+
+  def update_board
+    <<~BOARD
+       _______   _______
+      |#{print_board_line(@guess_spaces, 0, '|')}| |#{print_board_line(@feedback_spaces, 0, '|')}|
+      |#{print_board_line(@guess_spaces, 1, '|')}| |#{print_board_line(@feedback_spaces, 1, '|')}|
+      |#{print_board_line(@guess_spaces, 2, '|')}| |#{print_board_line(@feedback_spaces, 2, '|')}|
+      |#{print_board_line(@guess_spaces, 3, '|')}| |#{print_board_line(@feedback_spaces, 3, '|')}|
+      |#{print_board_line(@guess_spaces, 4, '|')}| |#{print_board_line(@feedback_spaces, 4, '|')}|
+      |#{print_board_line(@guess_spaces, 5, '|')}| |#{print_board_line(@feedback_spaces, 5, '|')}|
+      |#{print_board_line(@guess_spaces, 6, '|')}| |#{print_board_line(@feedback_spaces, 6, '|')}|
+      |#{print_board_line(@guess_spaces, 7, '|')}| |#{print_board_line(@feedback_spaces, 7, '|')}|
+      |#{print_board_line(@guess_spaces, 8, '|')}| |#{print_board_line(@feedback_spaces, 8, '|')}|
+      |#{print_board_line(@guess_spaces, 9, '|')}| |#{print_board_line(@feedback_spaces, 9, '|')}|
+      |#{print_board_line(@guess_spaces, 10, '|')}| |#{print_board_line(@feedback_spaces, 10, '|')}|
+      |#{print_board_line(@guess_spaces, 11, '|')}| |#{print_board_line(@feedback_spaces, 11, '|')}|
+    BOARD
   end
 end
-
-Board.new.draw_board
-
-# Saved unicode for spaces
-# ● ◯ ⊕ ⊖ ➊ ➋ ➌ ➍
