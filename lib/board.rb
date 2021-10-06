@@ -11,14 +11,6 @@ class Board
     modify_space(@guess_spaces, turn, input)
   end
 
-  def print_board_line(space_type, first_index, spacer)
-    output = ''
-    space_type[first_index].each do |space|
-      output += "#{space}#{spacer}"
-    end
-    output.delete_suffix('|')
-  end
-
   def draw_board
     <<~BOARD
        _______   _______
@@ -42,4 +34,16 @@ class Board
   def modify_space(space, turn, input)
     space[(turn - 1)] = input
   end
+
+  def print_board_line(space_type, first_index, spacer)
+    output = ''
+    space_type[first_index].each do |space|
+      output += "#{space}#{spacer}"
+    end
+    output.delete_suffix('|')
+  end
 end
+
+# board = Board.new
+# board.input_guess(4, %w[1 2 3 4])
+# puts board.draw_board
