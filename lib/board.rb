@@ -44,7 +44,3 @@ class Board
     output.delete_suffix('|')
   end
 end
-
-# board = Board.new
-# board.input_guess(4, %w[1 2 3 4])
-# puts board.draw_board
