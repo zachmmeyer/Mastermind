@@ -15,8 +15,7 @@ module Mastermind
     def guess
       turn = gets.chomp
       input = gets.chomp
-      input = input.to_s.chars
-      @board.input_guess(turn.to_i, input)
+      @board.input_guess(turn, input)
     end
 
     def print_codebreaker_text
