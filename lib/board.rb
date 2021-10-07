@@ -2,9 +2,12 @@
 
 # Board class
 class Board
+  # TODO: Figure out where to move these instance variables
   def initialize
-    @guess_spaces = Array.new(12, Array.new(4, '_'))
-    @feedback_spaces = Array.new(12, Array.new(4, '_'))
+    @guesses = 12
+    @integer_size = 4
+    @guess_spaces = Array.new(12, Array.new(@integer_size, '_'))
+    @feedback_spaces = Array.new(12, Array.new(@integer_size, '_'))
     @turn = 0
   end
 
@@ -13,21 +16,10 @@ class Board
   end
 
   def draw_board
-    <<~BOARD
-       _______   _______
-      |#{print_board_line(@guess_spaces, 0, '|')}| |#{print_board_line(@feedback_spaces, 0, '|')}|
-      |#{print_board_line(@guess_spaces, 1, '|')}| |#{print_board_line(@feedback_spaces, 1, '|')}|
-      |#{print_board_line(@guess_spaces, 2, '|')}| |#{print_board_line(@feedback_spaces, 2, '|')}|
-      |#{print_board_line(@guess_spaces, 3, '|')}| |#{print_board_line(@feedback_spaces, 3, '|')}|
-      |#{print_board_line(@guess_spaces, 4, '|')}| |#{print_board_line(@feedback_spaces, 4, '|')}|
-      |#{print_board_line(@guess_spaces, 5, '|')}| |#{print_board_line(@feedback_spaces, 5, '|')}|
-      |#{print_board_line(@guess_spaces, 6, '|')}| |#{print_board_line(@feedback_spaces, 6, '|')}|
-      |#{print_board_line(@guess_spaces, 7, '|')}| |#{print_board_line(@feedback_spaces, 7, '|')}|
-      |#{print_board_line(@guess_spaces, 8, '|')}| |#{print_board_line(@feedback_spaces, 8, '|')}|
-      |#{print_board_line(@guess_spaces, 9, '|')}| |#{print_board_line(@feedback_spaces, 9, '|')}|
-      |#{print_board_line(@guess_spaces, 10, '|')}| |#{print_board_line(@feedback_spaces, 10, '|')}|
-      |#{print_board_line(@guess_spaces, 11, '|')}| |#{print_board_line(@feedback_spaces, 11, '|')}|
-    BOARD
+    puts ' _______   _______'
+    @guesses.times do |guess|
+      puts "|#{print_board_line(@guess_spaces, guess)}| |#{print_board_line(@feedback_spaces, guess)}|"
+    end
   end
 
   private
@@ -36,11 +28,11 @@ class Board
     space[@turn] = input.to_s.chars
   end
 
-  def print_board_line(space_type, first_index, spacer)
+  def print_board_line(space_type, turn)
     output = ''
-    space_type[first_index].each do |space|
-      output += "#{space}#{spacer}"
+    space_type[turn].each_with_index do |space, index|
+      output = output + space.to_s + (index == @integer_size - 1 ? '' : '|')
     end
-    output.delete_suffix('|')
+    output
   end
 end

@@ -20,7 +20,7 @@ module Mastermind
     def print_codebreaker_text
       system('clear')
       puts 'Player is The Codebreaker'
-      puts @board.draw_board
+      @board.draw_board
       puts "\nInput your guess"
     end
 
