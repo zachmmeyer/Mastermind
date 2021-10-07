@@ -2,12 +2,12 @@
 
 # Board class
 class Board
-  # TODO: Figure out where to move these instance variables
+  INTEGER_SIZE = 4
+  GUESSES = 12
+
   def initialize
-    @guesses = 12
-    @integer_size = 4
-    @guess_spaces = Array.new(12, Array.new(@integer_size, '_'))
-    @feedback_spaces = Array.new(12, Array.new(@integer_size, '_'))
+    @guess_spaces = Array.new(GUESSES, Array.new(INTEGER_SIZE, '_'))
+    @feedback_spaces = Array.new(GUESSES, Array.new(INTEGER_SIZE, '_'))
     @turn = 0
   end
 
@@ -17,9 +17,8 @@ class Board
 
   def draw_board
     puts ' _______   _______'
-    @guesses.times do |guess|
-      # TODO: Possibly refactor this section further
-      puts "|#{print_board_line(@guess_spaces, guess)}| |#{print_board_line(@feedback_spaces, guess)}|"
+    GUESSES.times do |guess|
+      puts "|#{@guess_spaces[guess].join('|')}| |#{@feedback_spaces[guess].join('|')}|"
     end
   end
 
@@ -27,13 +26,5 @@ class Board
 
   def modify_space(space, input)
     space[@turn] = input.to_s.chars
-  end
-
-  def print_board_line(space_type, turn)
-    output = ''
-    space_type[turn].each_with_index do |space, index|
-      output = output + space.to_s + (index == @integer_size - 1 ? '' : '|')
-    end
-    output
   end
 end
