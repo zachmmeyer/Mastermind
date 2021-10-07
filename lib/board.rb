@@ -18,6 +18,7 @@ class Board
   def draw_board
     puts ' _______   _______'
     @guesses.times do |guess|
+      # TODO: Possibly refactor this section further
       puts "|#{print_board_line(@guess_spaces, guess)}| |#{print_board_line(@feedback_spaces, guess)}|"
     end
   end
