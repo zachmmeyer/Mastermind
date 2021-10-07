@@ -13,9 +13,8 @@ module Mastermind
     # TODO: Test input pattern to match 4 numbers
 
     def guess
-      turn = gets.chomp
       input = gets.chomp
-      @board.input_guess(turn, input)
+      @board.input_guess(input)
     end
 
     def print_codebreaker_text

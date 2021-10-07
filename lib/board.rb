@@ -5,10 +5,11 @@ class Board
   def initialize
     @guess_spaces = Array.new(12, Array.new(4, '_'))
     @feedback_spaces = Array.new(12, Array.new(4, '_'))
+    @turn = 0
   end
 
-  def input_guess(turn, input)
-    modify_space(@guess_spaces, turn, input)
+  def input_guess(input)
+    modify_space(@guess_spaces, input)
   end
 
   def draw_board
@@ -31,8 +32,8 @@ class Board
 
   private
 
-  def modify_space(space, turn, input)
-    space[(turn.to_i - 1)] = input.to_s.chars
+  def modify_space(space, input)
+    space[@turn] = input.to_s.chars
   end
 
   def print_board_line(space_type, first_index, spacer)
