@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative './board'
+require_relative './codebreaker'
 
 module Mastermind
   # Game class
@@ -10,24 +11,19 @@ module Mastermind
       @board = Board.new
     end
 
-    # TODO: Test input pattern to match 4 numbers
-
     def guess
       input = gets.chomp
       @board.input_guess(input)
     end
 
-    def print_codebreaker_text
-      system('clear')
-      puts 'Player is The Codebreaker'
-      @board.draw_board
-      puts "\nInput your guess"
-    end
-
     def start_codebreaker
+      @codebreaker = Codebreaker.new
       until @game_over
-        print_codebreaker_text
-        guess
+        system('clear')
+        puts 'Player is The Codebreaker'
+        @board.draw_board
+        @board.input_guess(@codebreaker.guess)
+        @board.increment_turn
       end
     end
 
