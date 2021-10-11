@@ -11,6 +11,10 @@ class Board
     @turn = 0
   end
 
+  def increment_turn
+    @turn += 1
+  end
+
   def input_guess(input)
     modify_space(@guess_spaces, input)
   end
