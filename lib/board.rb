@@ -15,6 +15,8 @@ class Board
     @turn += 1
   end
 
+  # TODO: Test input pattern to match 4 numbers
+
   def input_guess(input)
     modify_space(@guess_spaces, input)
   end
