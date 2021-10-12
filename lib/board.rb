@@ -11,6 +11,18 @@ class Board
     @turn = 0
   end
 
+  def check_for_game_over
+    true if @turn == GUESSES
+  end
+
+  def return_turns
+    @turns
+  end
+
+  def print_turn
+    puts "Turn: #{@turn + 1}"
+  end
+
   def increment_turn
     @turn += 1
   end
