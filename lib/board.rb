@@ -27,13 +27,12 @@ class Board
     @turn += 1
   end
 
-  # TODO: Test input pattern to match 4 numbers
-
-  def input_guess(input)
+  def parse_guess(input)
     modify_space(@guess_spaces, input)
   end
 
-  def draw_board
+  def draw_board_and_turn
+    print_turn
     puts ' _______   _______'
     GUESSES.times do |guess|
       puts "|#{@guess_spaces[guess].join('|')}| |#{@feedback_spaces[guess].join('|')}|"

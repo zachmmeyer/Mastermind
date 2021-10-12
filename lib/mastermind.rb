@@ -9,22 +9,38 @@ module Mastermind
     def initialize
       @game_over = false
       @board = Board.new
+      @winner = ''
     end
 
-    def guess
-      input = gets.chomp
-      @board.input_guess(input)
+    def game_over_codebreaker
+      @codebreaker.clear_and_prompt
+      @board.draw_board_and_turn
+      puts "\nGame Over"
+      puts "#{@winner} Wins!"
+    end
+
+    def check_codebreaker_guess
+      if @codebreaker.return_guess.match?(/^\d{4}$/)
+        @board.parse_guess(@codebreaker.return_guess)
+        @codebreaker.reset_guess
+        @board.increment_turn
+        @game_over = @board.check_for_game_over
+      else
+        codebreaker_round
+      end
+    end
+
+    def codebreaker_round
+      @codebreaker.clear_and_prompt
+      @board.draw_board_and_turn
+      @codebreaker.input_guess
+      check_codebreaker_guess
     end
 
     def start_codebreaker
       @codebreaker = Codebreaker.new
-      until @game_over
-        system('clear')
-        puts 'Player is The Codebreaker'
-        @board.draw_board
-        @board.input_guess(@codebreaker.guess)
-        @board.increment_turn
-      end
+      codebreaker_round until @game_over
+      game_over_codebreaker
     end
 
     def player_choose_role
