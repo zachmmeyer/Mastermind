@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 require_relative './board'
-require_relative './codebreaker'
+require_relative './codebreakerplayer'
+require_relative './codemakercomputer'
 
 module Mastermind
   # Game class
@@ -33,12 +34,15 @@ module Mastermind
     def codebreaker_round
       @codebreaker.clear_and_prompt
       @board.draw_board_and_turn
+      puts @board.code
       @codebreaker.input_guess
       check_codebreaker_guess
     end
 
     def start_codebreaker
-      @codebreaker = Codebreaker.new
+      @codebreaker = CodebreakerPlayer.new
+      @codemaker = CodemakerComputer.new
+      @board.code = @codemaker.code
       codebreaker_round until @game_over
       game_over_codebreaker
     end

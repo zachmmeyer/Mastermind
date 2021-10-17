@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Codebreaker class
-class Codebreaker
+class CodebreakerPlayer
   def initialize
     @guess_input = ''
   end
