@@ -2,6 +2,8 @@
 
 # Board class
 class Board
+  attr_accessor :code
+
   INTEGER_SIZE = 4
   GUESSES = 12
 
@@ -9,6 +11,7 @@ class Board
     @guess_spaces = Array.new(GUESSES, Array.new(INTEGER_SIZE, '_'))
     @feedback_spaces = Array.new(GUESSES, Array.new(INTEGER_SIZE, '_'))
     @turn = 0
+    @code = 0
   end
 
   def check_for_game_over
