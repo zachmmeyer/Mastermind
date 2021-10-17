@@ -4,6 +4,11 @@ require_relative './board'
 require_relative './codebreakerplayer'
 require_relative './codemakercomputer'
 
+# TODO: Create classes that handle things that happen whether or not the maker/breaker is a player or a computer.
+# TODO: Create Codebreaker and Codemaker classes
+# TODO: Create Codebreakerplayer/Codebreakercomputer classes
+# TODO: Create Codemakerplayer/Codemakercomputer classes
+
 module Mastermind
   # Game class
   class Game
