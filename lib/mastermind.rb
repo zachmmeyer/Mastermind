@@ -20,7 +20,7 @@ module Mastermind
     end
 
     def check_codebreaker_guess
-      if @codebreaker.return_guess.match?(/^\d{4}$/)
+      if @codebreaker.return_guess.match?(/^[1-6]{4}$/)
         @board.parse_guess(@codebreaker.return_guess)
         @codebreaker.reset_guess
         @board.increment_turn
