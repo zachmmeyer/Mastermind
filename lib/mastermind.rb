@@ -15,22 +15,29 @@ module Mastermind
     def initialize
       @game_over = false
       @board = Board.new
-      @winner = ''
     end
 
-    def game_over_codebreaker
+    def game_over_codebreaker(winner)
       @codebreaker.clear_and_prompt
       @board.draw_board_and_turn
+      puts @board.code
       puts "\nGame Over"
-      puts "#{@winner} Wins!"
+      puts "#{winner} Wins!"
+    end
+
+    def game_over_check
+      @game_over = @board.check_for_game_over_code_match
+      @game_over = @board.check_for_game_over_too_many_turns
     end
 
     def check_codebreaker_guess
       if @codebreaker.return_guess.match?(/^[1-6]{4}$/)
+        @board.guess = @codebreaker.return_guess
         @board.parse_guess(@codebreaker.return_guess)
+        @board.parse_feedback(@codemaker.return_feedback(@codebreaker.return_guess))
         @codebreaker.reset_guess
         @board.increment_turn
-        @game_over = @board.check_for_game_over
+        game_over_check
       else
         codebreaker_round
       end
@@ -49,7 +56,7 @@ module Mastermind
       @codemaker = CodemakerComputer.new
       @board.code = @codemaker.code
       codebreaker_round until @game_over
-      game_over_codebreaker
+      game_over_codebreaker(@board.winner)
     end
 
     def player_choose_role

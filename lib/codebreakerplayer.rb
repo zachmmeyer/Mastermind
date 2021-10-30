@@ -15,7 +15,8 @@ class CodebreakerPlayer
   end
 
   def clear_and_prompt
-    system('clear')
+    # Turning off clear for debugging purposes
+    # system('clear')
     puts 'Player is The Codebreaker'
     puts 'Please input a 4-digit number'
   end
