@@ -13,7 +13,8 @@ module Mastermind
   # Game class
   class Game
     def initialize
-      @game_over = false
+      @game_over_code = false
+      @game_over_turns = false
       @board = Board.new
     end
 
@@ -26,8 +27,13 @@ module Mastermind
     end
 
     def game_over_check
-      @game_over = @board.check_for_game_over_code_match
-      @game_over = @board.check_for_game_over_too_many_turns
+      @game_over_code = @board.check_for_game_over_code_match
+      @game_over_turns = @board.check_for_game_over_too_many_turns
+    end
+
+    def update_code_and_guess
+      @board.guess = @codebreaker.guess
+      @board.code = @codemaker.code
     end
 
     def check_codebreaker_guess
@@ -35,7 +41,7 @@ module Mastermind
         @board.guess = @codebreaker.return_guess
         @board.parse_guess(@codebreaker.return_guess)
         @board.parse_feedback(@codemaker.return_feedback(@codebreaker.return_guess))
-        @codebreaker.reset_guess
+        update_code_and_guess
         @board.increment_turn
         game_over_check
       else
@@ -46,7 +52,7 @@ module Mastermind
     def codebreaker_round
       @codebreaker.clear_and_prompt
       @board.draw_board_and_turn
-      puts @board.code
+      # puts "Code: #{@board.code}"
       @codebreaker.input_guess
       check_codebreaker_guess
     end
@@ -54,9 +60,9 @@ module Mastermind
     def start_codebreaker
       @codebreaker = CodebreakerPlayer.new
       @codemaker = CodemakerComputer.new
-      @board.code = @codemaker.code
-      codebreaker_round until @game_over
-      game_over_codebreaker(@board.winner)
+      # @board.code = @codemaker.code
+      codebreaker_round until @game_over_code || @game_over_turns
+      @game_over_code ? game_over_codebreaker('Codebreaker') : game_over_codebreaker('Codemaker')
     end
 
     def player_choose_role

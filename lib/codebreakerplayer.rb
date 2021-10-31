@@ -2,27 +2,28 @@
 
 # Codebreaker class
 class CodebreakerPlayer
+  attr_reader :guess
+
   def initialize
-    @guess_input = ''
+    @guess = ''
   end
 
   def reset_guess
-    @guess_input = ''
+    @guess = ''
   end
 
   def return_guess
-    @guess_input
+    @guess
   end
 
   def clear_and_prompt
-    # Turning off clear for debugging purposes
-    # system('clear')
+    system('clear')
     puts 'Player is The Codebreaker'
     puts 'Please input a 4-digit number'
   end
 
   def input_guess
     puts "\nInput your guess"
-    @guess_input = gets.chomp
+    @guess = gets.chomp
   end
 end

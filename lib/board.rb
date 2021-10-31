@@ -3,7 +3,6 @@
 # Board class
 class Board
   attr_accessor :code, :guess
-  attr_reader :winner
 
   INTEGER_SIZE = 4
   GUESSES = 12
@@ -12,19 +11,16 @@ class Board
     @guess_spaces = Array.new(GUESSES, Array.new(INTEGER_SIZE, '_'))
     @feedback_spaces = Array.new(GUESSES, Array.new(INTEGER_SIZE, '_'))
     @turn = 0
-    @code = 0
-    @guess = 0
-    @winner = ''
+    @guess = 'guess'
+    @code = 'code'
   end
 
   def check_for_game_over_too_many_turns
-    @winner = 'Codemaker'
     true if @turn == GUESSES
   end
 
   def check_for_game_over_code_match
-    @winner = 'Codebreaker'
-    true if @code == @guess
+    true if @code.eql? @guess
   end
 
   def print_turn
@@ -36,6 +32,7 @@ class Board
   end
 
   def parse_guess(input)
+    @guess = input
     modify_space(@guess_spaces, input)
   end
 
