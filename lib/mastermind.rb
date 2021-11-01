@@ -4,11 +4,6 @@ require_relative './board'
 require_relative './codebreakerplayer'
 require_relative './codemakercomputer'
 
-# TODO: Create classes that handle things that happen whether or not the maker/breaker is a player or a computer.
-# TODO: Create Codebreaker and Codemaker classes
-# TODO: Create Codebreakerplayer/Codebreakercomputer classes
-# TODO: Create Codemakerplayer/Codemakercomputer classes
-
 module Mastermind
   # Game class
   class Game
@@ -52,7 +47,6 @@ module Mastermind
     def codebreaker_round
       @codebreaker.clear_and_prompt
       @board.draw_board_and_turn
-      # puts "Code: #{@board.code}"
       @codebreaker.input_guess
       check_codebreaker_guess
     end
@@ -60,7 +54,6 @@ module Mastermind
     def start_codebreaker
       @codebreaker = CodebreakerPlayer.new
       @codemaker = CodemakerComputer.new
-      # @board.code = @codemaker.code
       codebreaker_round until @game_over_code || @game_over_turns
       @game_over_code ? game_over_codebreaker('Codebreaker') : game_over_codebreaker('Codemaker')
     end
