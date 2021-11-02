@@ -26,18 +26,21 @@ module Mastermind
       @game_over_turns = @board.check_for_game_over_too_many_turns
     end
 
-    def update_code_and_guess
-      @board.guess = @codebreaker.guess
-      @board.code = @codemaker.code
+    def parse_codebreaker_guess(return_codebreaker_guess)
+      @board.guess = return_codebreaker_guess
+      @board.parse_guess(return_codebreaker_guess)
+    end
+
+    def return_feedback(return_codebreaker_guess)
+      @board.parse_feedback(@codemaker.return_feedback(return_codebreaker_guess))
+      @board.increment_turn
     end
 
     def check_codebreaker_guess
-      if @codebreaker.return_guess.match?(/^[1-6]{4}$/)
-        @board.guess = @codebreaker.return_guess
-        @board.parse_guess(@codebreaker.return_guess)
-        @board.parse_feedback(@codemaker.return_feedback(@codebreaker.return_guess))
-        update_code_and_guess
-        @board.increment_turn
+      return_codebreaker_guess = @codebreaker.return_guess
+      if return_codebreaker_guess.match?(/^[1-6]{4}$/)
+        parse_codebreaker_guess(return_codebreaker_guess)
+        return_feedback(return_codebreaker_guess)
         game_over_check
       else
         codebreaker_round
@@ -51,9 +54,14 @@ module Mastermind
       check_codebreaker_guess
     end
 
-    def start_codebreaker
+    def create_codebreaker_player_instances
       @codebreaker = CodebreakerPlayer.new
       @codemaker = CodemakerComputer.new
+    end
+
+    def start_codebreaker
+      create_codebreaker_player_instances
+      @board.code = @codemaker.code
       codebreaker_round until @game_over_code || @game_over_turns
       @game_over_code ? game_over_codebreaker('Codebreaker') : game_over_codebreaker('Codemaker')
     end
