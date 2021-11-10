@@ -3,6 +3,8 @@
 require_relative './board'
 require_relative './codebreakerplayer'
 require_relative './codemakercomputer'
+require_relative './codebreakercomputer'
+require_relative './codemakerplayer'
 
 module Mastermind
   # Game class
@@ -33,6 +35,8 @@ module Mastermind
 
     def return_feedback(return_codebreaker_guess)
       @board.parse_feedback(@codemaker.return_feedback(return_codebreaker_guess))
+      @codebreaker.feedback_inexact = @codemaker.feedback_inexact
+      @codebreaker.feedback_exact = @codemaker.feedback_exact
       @board.increment_turn
     end
 
@@ -66,13 +70,33 @@ module Mastermind
       @game_over_code ? game_over_codebreaker('Codebreaker') : game_over_codebreaker('Codemaker')
     end
 
+    # Player Codemaker specific logic starts here
+
+    def codemaker_round
+      @codebreaker.clear_and_prompt
+      @board.draw_board_and_turn
+      @codebreaker.input_guess
+      check_codebreaker_guess
+    end
+
+    def start_codemaker
+      @codebreaker = CodebreakerComputer.new
+      @codemaker = CodemakerPlayer.new
+      @codemaker.input_code
+      @board.code = @codemaker.code
+      codemaker_round until @game_over_code || @game_over_turns
+      @game_over_code ? game_over_codebreaker('Codebreaker') : game_over_codebreaker('Codemaker')
+    end
+
+    # Player Codemaker specific logic ends here
+
     def player_choose_role
       player_choice = gets.chomp
       case player_choice
       when '1'
         start_codebreaker
       when '2'
-        puts 'Player is The Codemaker'
+        start_codemaker
       else
         start_game
       end

@@ -2,10 +2,12 @@
 
 # CodemakerComputer class
 class Codemaker
-  attr_reader :code
+  attr_reader :code, :feedback_inexact, :feedback_exact
 
   def initialize
     @code = ''
+    @feedback_inexact = 0
+    @feedback_exact = 0
   end
 
   def fill_in_spaces(code, feedback)
@@ -46,6 +48,8 @@ class Codemaker
     filtered_code = remove_exact_matches(@code, guess)
     filtered_guess = remove_exact_matches(guess, @code)
     (filtered_code.count 'exact match').times { feedback += '+' }
+    @feedback_exact = (filtered_code.count 'exact match')
+    @feedback_inexact = inexact_match(filtered_code, filtered_guess)
     inexact_match(filtered_code, filtered_guess).times { feedback += '-' }
     fill_in_spaces(@code, feedback).times { feedback += '_' }
     feedback
