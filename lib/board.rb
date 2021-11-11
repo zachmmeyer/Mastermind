@@ -2,7 +2,7 @@
 
 # Board class
 class Board
-  attr_accessor :code, :guess
+  attr_accessor :code, :guess, :turn
 
   INTEGER_SIZE = 4
   GUESSES = 12

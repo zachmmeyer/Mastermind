@@ -38,6 +38,7 @@ module Mastermind
       @codebreaker.feedback_inexact = @codemaker.feedback_inexact
       @codebreaker.feedback_exact = @codemaker.feedback_exact
       @board.increment_turn
+      @codebreaker.turn = @board.turn
     end
 
     def check_codebreaker_guess
