@@ -28,6 +28,7 @@ class Codemaker
       if filtered_guess.include?(char) && filtered_code_hash[char].positive?
         count += 1
         filtered_code_hash[char] -= 1
+        filtered_guess.delete(char)
       end
     end
     count
@@ -48,10 +49,10 @@ class Codemaker
     filtered_code = remove_exact_matches(@code, guess)
     filtered_guess = remove_exact_matches(guess, @code)
     (filtered_code.count 'exact match').times { feedback += '+' }
-    @feedback_exact = (filtered_code.count 'exact match')
-    @feedback_inexact = inexact_match(filtered_code, filtered_guess)
     inexact_match(filtered_code, filtered_guess).times { feedback += '-' }
     fill_in_spaces(@code, feedback).times { feedback += '_' }
+    @feedback_exact = (filtered_code.count 'exact match')
+    @feedback_inexact = inexact_match(filtered_code, filtered_guess)
     feedback
   end
 end
