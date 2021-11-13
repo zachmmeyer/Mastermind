@@ -34,9 +34,9 @@ module Mastermind
     end
 
     def return_feedback(return_codebreaker_guess)
-      @board.parse_feedback(@codemaker.return_feedback(@codemaker.code, return_codebreaker_guess))
-      @codebreaker.feedback_inexact = @codemaker.feedback_inexact
-      @codebreaker.feedback_exact = @codemaker.feedback_exact
+      feedback = @codemaker.return_feedback(@codemaker.code, return_codebreaker_guess)
+      @board.parse_feedback(feedback)
+      @codebreaker.feedback = feedback
       @board.increment_turn
       @codebreaker.turn = @board.turn
     end

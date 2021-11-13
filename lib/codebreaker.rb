@@ -3,13 +3,11 @@
 # Codebreaker class
 class Codebreaker
   attr_reader :guess
-  attr_writer :feedback_exact, :feedback_inexact, :turn
+  attr_writer :feedback, :turn
 
   def initialize
     @guess = ''
-    @feedback_inexact = 0
-    @feedback_exact = 0
-    @feedback_total = 0
+    @feedback = ''
     @guess_array = [1, 1, 1, 1]
     @turn = 0
     @previous_guesses = []
