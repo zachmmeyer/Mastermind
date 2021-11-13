@@ -2,7 +2,7 @@
 
 # Codebreaker class
 class Codebreaker
-  attr_reader :guess
+  attr_reader :guess, :turn
   attr_writer :feedback, :turn
 
   def initialize

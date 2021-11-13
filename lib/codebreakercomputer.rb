@@ -13,7 +13,7 @@ class CodebreakerComputer < Codebreaker
   include Feedback
 
   def clear_and_prompt
-    system('clear')
+    # system('clear')
     puts 'Computer is The Codebreaker'
   end
 

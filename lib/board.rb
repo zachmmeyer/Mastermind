@@ -41,7 +41,7 @@ class Board
   end
 
   def draw_board_and_turn
-    print_turn
+    # print_turn
     puts ' _______   _______'
     GUESSES.times do |guess|
       puts "|#{@guess_spaces[guess].join('|')}| |#{@feedback_spaces[guess].join('|')}|"

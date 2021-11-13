@@ -28,14 +28,11 @@ module Mastermind
     end
 
     def game_over_codebreaker(winner)
-      @codebreaker.clear_and_prompt
+      # @codebreaker.clear_and_prompt
       @board.turn -= 1
-      @board.draw_board_and_turn
-      puts @board.code
-      puts "\nGame Over"
-      puts "#{winner} Wins!"
-      puts 'Do you want to play again? Yes or No'
-      play_again
+      # @board.draw_board_and_turn
+      # puts @board.code
+      @board.turn
     end
 
     def game_over_check
@@ -69,7 +66,7 @@ module Mastermind
 
     def codebreaker_round
       @codebreaker.clear_and_prompt
-      @board.draw_board_and_turn
+      # @board.draw_board_and_turn
       @codebreaker.input_guess
       check_codebreaker_guess
     end
@@ -89,16 +86,16 @@ module Mastermind
     # Player Codemaker specific logic starts here
 
     def codemaker_round
-      @codebreaker.clear_and_prompt
-      @board.draw_board_and_turn
+      # @codebreaker.clear_and_prompt
+      # @board.draw_board_and_turn
       @codebreaker.input_guess
       check_codebreaker_guess
     end
 
-    def start_codemaker
+    def start_codemaker(code)
       @codebreaker = CodebreakerComputer.new
       @codemaker = CodemakerPlayer.new
-      @codemaker.input_code
+      @codemaker.input_code(code)
       @board.code = @codemaker.code
       codemaker_round until @game_over_code || @game_over_turns
       @game_over_code ? game_over_codebreaker('Codebreaker') : game_over_codebreaker('Codemaker')
@@ -118,13 +115,10 @@ module Mastermind
       end
     end
 
-    def start_game
-      system('clear')
-      puts 'Welcome to Mastermind!'
-      puts 'Press 1 to become The Codebreaker; Press 2 to become The Codemaker'
-      player_choose_role
+    def start_game(code)
+      start_codemaker(code)
     end
   end
 end
 
-Mastermind::Game.new.start_game
+# Mastermind::Game.new.start_game
