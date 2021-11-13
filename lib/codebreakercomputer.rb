@@ -24,7 +24,7 @@ class CodebreakerComputer < Codebreaker
       @possible_codes.delete(@previous_guess)
       new_possible_codes = @possible_codes.select { |possibility| (return_feedback(@previous_guess, possibility) == @feedback) }
       @possible_codes = new_possible_codes
-      @guess = @possible_codes[0]
+      @guess = @possible_codes.sample
     end
     @previous_guess = @guess
     @guess
