@@ -28,7 +28,7 @@ class Codemaker
       if filtered_guess.include?(char) && filtered_code_hash[char].positive?
         count += 1
         filtered_code_hash[char] -= 1
-        filtered_guess.delete(char)
+        filtered_guess.slice!(filtered_guess.index(char))
       end
     end
     count
