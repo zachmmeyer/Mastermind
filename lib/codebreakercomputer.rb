@@ -17,12 +17,18 @@ class CodebreakerComputer < Codebreaker
     puts 'Computer is The Codebreaker'
   end
 
+  def filter_possible_codes
+    @possible_codes.select do |possibility|
+      return_feedback(@previous_guess, possibility) == @feedback
+    end
+  end
+
   def input_guess
     if @turn.zero?
       @guess = '1122'
     else
       @possible_codes.delete(@previous_guess)
-      new_possible_codes = @possible_codes.select { |possibility| (return_feedback(@previous_guess, possibility) == @feedback) }
+      new_possible_codes = filter_possible_codes
       @possible_codes = new_possible_codes
       @guess = @possible_codes.sample
     end
