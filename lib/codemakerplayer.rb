@@ -15,6 +15,6 @@ class CodemakerPlayer < Codemaker
   def input_code
     system('clear')
     puts "\nInput your code"
-    @code = gets.chomp
+    @code = gets.chomp until @code.match?(/^[1-6]{4}$/)
   end
 end
