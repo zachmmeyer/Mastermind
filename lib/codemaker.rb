@@ -44,15 +44,13 @@ class Codemaker
     end
   end
 
-  def return_feedback(guess)
+  def return_feedback(code, guess)
     feedback = ''
-    filtered_code = remove_exact_matches(@code, guess)
-    filtered_guess = remove_exact_matches(guess, @code)
+    filtered_code = remove_exact_matches(code, guess)
+    filtered_guess = remove_exact_matches(guess, code)
     (filtered_code.count 'exact match').times { feedback += '+' }
     inexact_match(filtered_code, filtered_guess).times { feedback += '-' }
-    fill_in_spaces(@code, feedback).times { feedback += '_' }
-    @feedback_exact = (filtered_code.count 'exact match')
-    @feedback_inexact = inexact_match(filtered_code, filtered_guess)
+    fill_in_spaces(code, feedback).times { feedback += '_' }
     feedback
   end
 end
