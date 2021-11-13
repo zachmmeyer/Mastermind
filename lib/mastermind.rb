@@ -15,6 +15,18 @@ module Mastermind
       @board = Board.new
     end
 
+    def play_again
+      player_choice = gets.chomp.downcase
+      case player_choice
+      when 'yes'
+        Mastermind::Game.new.start_game
+      when 'no'
+        exit
+      else
+        play_again
+      end
+    end
+
     def game_over_codebreaker(winner)
       @codebreaker.clear_and_prompt
       @board.turn -= 1
@@ -22,6 +34,8 @@ module Mastermind
       puts @board.code
       puts "\nGame Over"
       puts "#{winner} Wins!"
+      puts 'Do you want to play again? Yes or No'
+      play_again
     end
 
     def game_over_check
