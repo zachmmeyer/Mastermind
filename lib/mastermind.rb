@@ -17,6 +17,7 @@ module Mastermind
 
     def game_over_codebreaker(winner)
       @codebreaker.clear_and_prompt
+      @board.turn -= 1
       @board.draw_board_and_turn
       puts @board.code
       puts "\nGame Over"
